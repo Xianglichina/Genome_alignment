@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#BSUB -n 1
+#BSUB -R "span[hosts=1] rusage[mem=16384]"
+#BSUB -q long
+#BSUB -W 300:00
+#BSUB -o "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.out"
+#BSUB -e "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.err"
+
+
+for i in ERR616393
+do
+
+/share/pkg/sratoolkit/2.8.0/bin/fastq-dump -I --split-files $i
+
+sed -E 's/^((@|\+)+ERR[^.]+\.[^.]+)\.(1|2)/\1/' "$i"_1.fastq |gzip> "$i"_1_name.fastq.gz
+sed -E 's/^((@|\+)+ERR[^.]+\.[^.]+)\.(1|2)/\1/' "$i"_2.fastq |gzip> "$i"_2_name.fastq.gz
+
+rm "$i"_1.fastq
+rm "$i"_2.fastq
+
+/share/pkg/java/1.8.0_77/bin/java -jar /share/pkg/trimmomatic/0.32/trimmomatic-0.32.jar PE -phred33 "$i"_1_name.fastq.gz "$i"_2_name.fastq.gz "$i"_1_paired.fastq.gz "$i"_1_unpaired.fastq.gz "$i"_2_paired.fastq.gz "$i"_2_unpaired.fastq.gz SLIDINGWINDOW:4:20 MINLEN:36
+
+rm "$i"_1_unpaired.fastq.gz 
+rm "$i"_2_unpaired.fastq.gz 
+
+/share/pkg/bwa/0.7.15/bin/bwa mem /project/uma_ana_caicedo/xiang_li/mbk_genome_alignment/R498_reference_genome/R498_Final_Version2.soft.fa "$i"_1_paired.fastq.gz "$i"_2_paired.fastq.gz > "$i"_R498.sam
+
+/share/pkg/samtools/1.4.1/bin/samtools view -bhS -F 4 "$i"_R498.sam -o "$i"_R498_mapped.bam
+
+/share/pkg/samtools/1.4.1/bin/samtools sort "$i"_R498_mapped.bam -o "$i"_R498_sorted.bam
+
+done
