@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#BSUB -n 16
+#BSUB -R rusage[mem=4096]
+#BSUB -q long
+#BSUB -W 160:00
+#BSUB -o "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.out"
+#BSUB -e "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.err"
+
+for i in ERR615280 ERR615281 ERR615282 ERR615283 ERR615284
+do
+        /share/pkg/java/1.8.0_77/bin/java -jar /share/pkg/trimmomatic/0.32/trimmomatic-0.32.jar PE -phred33 "$i"_1_name.fastq.gz "$i"_2_name.fastq.gz "$i"_1_paired.fastq.gz "$i"_1_unpaired.fastq.gz "$i"_2_paired.fastq.gz "$i"_2_unpaired.fastq.gz SLIDINGWINDOW:4:20 MINLEN:36
+done
+
