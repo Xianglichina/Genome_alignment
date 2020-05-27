@@ -1,6 +1,6 @@
 #!/bin/bash
-
-
+#BSUB -n 1
+#BSUB -R "span[hosts=1] rusage[mem=2048]"
 #BSUB -q long
 #BSUB -W 20:00
 #BSUB -o "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.out"
