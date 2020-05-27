@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#BSUB -n 1
+#BSUB -R "span[hosts=1] rusage[mem=16384]"
+#BSUB -q long
+#BSUB -W 60:00
+#BSUB -o "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.out"
+#BSUB -e "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.err"
+
+/share/pkg/samtools/1.4.1/bin/samtools merge SSR_IRIS_313_11668.bam ERR630930_R498_sorted.bam  ERR630934_R498_sorted.bam  ERR630938_R498_sorted.bam  ERR630942_R498_sorted.bam  ERR630946_R498_sorted.bam ERR630931_R498_sorted.bam  ERR630935_R498_sorted.bam  ERR630939_R498_sorted.bam  ERR630943_R498_sorted.bam  ERR630947_R498_sorted.bam ERR630932_R498_sorted.bam  ERR630936_R498_sorted.bam  ERR630940_R498_sorted.bam  ERR630944_R498_sorted.bam  ERR630948_R498_sorted.bam ERR630933_R498_sorted.bam  ERR630937_R498_sorted.bam  ERR630941_R498_sorted.bam  ERR630945_R498_sorted.bam  ERR630949_R498_sorted.bam
