@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+#BSUB -q long
+#BSUB -W 20:00
+#BSUB -o "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.out"
+#BSUB -e "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.err"
+
+for i in ERR608281 ERR608282 ERR608283 ERR608284 ERR608285 ERR608286
+do
+    sed -E 's/^((@|\+)+ERR[^.]+\.[^.]+)\.(1|2)/\1/' "$i"_1.fastq |gzip> "$i"_1_name.fastq.gz
+    sed -E 's/^((@|\+)+ERR[^.]+\.[^.]+)\.(1|2)/\1/' "$i"_2.fastq |gzip> "$i"_2_name.fastq.gz
+done
