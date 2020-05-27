@@ -1,0 +1,12 @@
+#!/bin/bash
+#BSUB -n 4
+#BSUB -R rusage[mem=2048]
+#BSUB -q short
+#BSUB -W 4:00
+#BSUB -o "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.out"
+#BSUB -e "/project/uma_ana_caicedo/xiang_li/genome_population_indica/output/%J.err"
+
+for i in ERR608281 ERR608282 ERR608283 ERR608284 ERR608285 ERR608286
+do
+    /share/pkg/sratoolkit/2.8.0/bin/fastq-dump -I --split-files $i
+done
