@@ -1,3 +1,18 @@
+#make the index for the reference genome 
+#!/bin/bash
+
+#BSUB -n 1
+#BSUB -R "span[hosts=1] rusage[mem=16384]"
+#BSUB -q short
+#BSUB -W 4:00
+#BSUB -o "/project/uma_ana_caicedo/xiang_li/genome_population_japonica/output/%J.out"
+#BSUB -e "/project/uma_ana_caicedo/xiang_li/genome_population_japonica/output/%J.err"
+
+/share/pkg/bwa/0.7.15/bin/bwa index japonica_msu7.fa
+
+
+
+#real bwa process 
 #!/bin/bash
 
 #BSUB -n 1
