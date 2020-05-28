@@ -11,3 +11,6 @@ do
     sed -E 's/^((@|\+)+ERR[^.]+\.[^.]+)\.(1|2)/\1/' "$i"_1.fastq |gzip> "$i"_1_name.fastq.gz
     sed -E 's/^((@|\+)+ERR[^.]+\.[^.]+)\.(1|2)/\1/' "$i"_2.fastq |gzip> "$i"_2_name.fastq.gz
 done
+
+## Here you have to change the name accordingly. Because here we use ERR, you should use ERR in the loop codes. If you use SRR, you should use SRR in the code.
+## this commend doesnot work for the gzip file, you have to do this step before zip the file 
